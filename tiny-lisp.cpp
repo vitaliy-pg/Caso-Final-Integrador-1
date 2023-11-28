@@ -92,3 +92,21 @@ Variant Variant::from_json_string(const std::string& sjson) {
     }
     return parse_json(json);
 }
+
+Variant Variant::parse_json(const json11::Json& job) {
+    switch (job.type()) {
+        case json11::Json::NUMBER:
+            return Variant(Number, job.string_value());
+        case json11::Json::STRING:
+            return Variant(Cadena, job.string_value());
+        case json11::Json::ARRAY: {
+            Variant result(List);
+            for (const auto& elem : job.array_items()) {
+                result.list.push_back(parse_json(elem));
+            }
+            return result;
+        }
+        default:
+            return Variant();
+    }
+}
