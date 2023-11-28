@@ -6,6 +6,7 @@
 #include <iomanip>
 #include "json11.hpp"
 #include "jsonlib.hpp"
+enum variant_type { Symbol, Number, List, Proc, Lambda, Cadena };
 
 class Variant {
 public:
