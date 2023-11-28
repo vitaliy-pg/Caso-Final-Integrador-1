@@ -84,3 +84,11 @@ std::string Variant::to_json_string() {
             return "";
     }
 }
+Variant Variant::from_json_string(const std::string& sjson) {
+    std::string err;
+    json11::Json json = json11::Json::parse(sjson, err);
+    if (!err.empty()) {
+        throw std::runtime_error("Error parsing JSON: " + err);
+    }
+    return parse_json(json);
+}
