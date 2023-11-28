@@ -7,16 +7,12 @@
 #include "json11.hpp"
 #include "jsonlib.hpp"
 enum variant_type { Symbol, Number, List, Proc, Lambda, Cadena };
+struct Entorno;
+
 
 class Variant {
 public:
-    using ValueType = std::variant<int, double, std::string, std::vector<Variant>, std::map<std::string, Variant>>;
+    typedef Variant(*proc_type) ( const std::vector<Variant>& );
+    typedef std::vector<Variant>::const_iterator iter;
+    typedef std::map<std::string, Variant> map;
 
-    // Constructor que acepta un valor inicial
-    Variant(const ValueType& value) : value_(value) {}
-
-    // Método para obtener el valor interno
-    ValueType getValue() const {
-        return value_;
-    }
-};
