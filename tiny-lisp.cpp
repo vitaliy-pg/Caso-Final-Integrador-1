@@ -4,3 +4,5 @@
 #include <map>
 #include <sstream>
 #include <iomanip>
+
+class Variant {
