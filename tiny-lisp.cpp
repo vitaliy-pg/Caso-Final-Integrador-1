@@ -4,6 +4,8 @@
 #include <map>
 #include <sstream>
 #include <iomanip>
+#include "json11.hpp"
+#include "jsonlib.hpp"
 
 class Variant {
 public:
