@@ -33,7 +33,7 @@ public:
 
     };
 
-// Método para convertir una instancia de Variant a una cadena de texto
+
 std::string Variant::to_string() {
     switch (type) {
         case Symbol:
@@ -50,6 +50,29 @@ std::string Variant::to_string() {
             }
             result += ")";
             return result;
+        }
+        case Proc:
+            return "#<procedure>";
+        case Lambda:
+            return "#<lambda>";
+        case Cadena:
+            return '"' + val + '"';
+        default:
+            return "";
+    }
+}
+std::string Variant::to_json_string() {
+    json11::Json::array arr;
+    switch (type) {
+        case Symbol:
+            return val;
+        case Number:
+            return std::to_string(std::stod(val));
+        case List: {
+            for (const auto& elem : list) {
+                arr.push_back(json11::Json(elem.to_json_string()));
+            }
+            return json11::Json(arr).dump();
         }
         case Proc:
             return "#<procedure>";
