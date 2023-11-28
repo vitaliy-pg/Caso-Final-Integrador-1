@@ -30,3 +30,34 @@ public:
     std::string to_json_string();
     static Variant from_json_string(const std::string& sjson);
     static Variant parse_json(const json11::Json& job);
+
+    };
+
+// Método para convertir una instancia de Variant a una cadena de texto
+std::string Variant::to_string() {
+    switch (type) {
+        case Symbol:
+            return val;
+        case Number:
+            return std::to_string(std::stod(val));
+        case List: {
+            std::string result = "(";
+            for (auto it = list.begin(); it != list.end(); ++it) {
+                result += it->to_string();
+                if (std::next(it) != list.end()) {
+                    result += " ";
+                }
+            }
+            result += ")";
+            return result;
+        }
+        case Proc:
+            return "#<procedure>";
+        case Lambda:
+            return "#<lambda>";
+        case Cadena:
+            return '"' + val + '"';
+        default:
+            return "";
+    }
+}
